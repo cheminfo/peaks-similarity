@@ -112,33 +112,7 @@ module.exports = function Comparator(options) {
         return NaN;
     }
 
-// Adapted from: http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/1968345#1968345
-    function getIntersection(segment1, segment2) {
-        var p0_x=segment1[0][0];
-        var p0_y=segment1[0][1];
-        var p1_x=segment1[1][0];
-        var p1_y=segment1[1][1];
-        var p2_x=segment2[0][0];
-        var p2_y=segment2[0][1];
-        var p3_x=segment2[1][0];
-        var p3_y=segment2[1][1];
 
-        var s1_x, s1_y, s2_x, s2_y;
-        s1_x = p1_x - p0_x;
-        s1_y = p1_y - p0_y;
-        s2_x = p3_x - p2_x;
-        s2_y = p3_y - p2_y;
-        var s, t;
-        s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
-        t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
-        if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
-            return {
-                x:p0_x + (t * s1_x),
-                y:p0_y + (t * s1_y)
-            }
-        }
-        return null; // No collision
-    }
 
     // this method calculates the total diff. The sum of positive value will yield to overlap
     function calculateDiff() {
@@ -181,36 +155,6 @@ module.exports = function Comparator(options) {
         return newSecond;
     }
 
-    function calculateOverlapFromDiff(diffs) {
-        var sumPos=0;
-        for (var i=0; i<diffs.length; i++) {
-            sumPos+=Math.abs(diffs[i][1]);
-        }
-        return 1-sumPos;
-    }
-
-    function normalize(array) {
-        var sum=0;
-        for (var i=0; i<array.length; i++) {
-            sum+=array[i][1];
-        }
-        for (var i=0; i<array.length; i++) {
-            array[i][1]/=sum;
-        }
-    }
-
-    function extractAndNormalize(array, from, to) {
-        if (! (array instanceof Array)) return;
-        var newArray=[];
-        var j=0;
-        for (var i=0; i<array.length; i++) {
-            if ( (! from || array[i][0]>=from)  && (! to || array[i][0]<=to)) {
-                newArray[j++]=[array[i][0],array[i][1]];
-            }
-        }
-        normalize(newArray);
-        return newArray;
-    }
 
     /*
         This code requires the use of an array like  [[x1,y1],[x2,y2], ...]
@@ -219,7 +163,7 @@ module.exports = function Comparator(options) {
      */
     function checkArray(points) {
         // if it is already a 2D array of points, we just return them
-        if (points.length && points[0] && points[0].length===2) return points;
+        if (Array.isArray(points) && Array.isArray(points[0]) && points[0].length===2) return points;
         var xs=points[0];
         var ys=points[1];
         var array=[];
@@ -249,3 +193,64 @@ module.exports = function Comparator(options) {
     this.setTrapezoid = setTrapezoid;
     this.getSimilarity = getSimilarity;
 };
+
+
+
+// Adapted from: http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/1968345#1968345
+function getIntersection(segment1, segment2) {
+    var p0_x=segment1[0][0];
+    var p0_y=segment1[0][1];
+    var p1_x=segment1[1][0];
+    var p1_y=segment1[1][1];
+    var p2_x=segment2[0][0];
+    var p2_y=segment2[0][1];
+    var p3_x=segment2[1][0];
+    var p3_y=segment2[1][1];
+
+    var s1_x, s1_y, s2_x, s2_y;
+    s1_x = p1_x - p0_x;
+    s1_y = p1_y - p0_y;
+    s2_x = p3_x - p2_x;
+    s2_y = p3_y - p2_y;
+    var s, t;
+    s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
+    t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
+    if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
+        return {
+            x:p0_x + (t * s1_x),
+            y:p0_y + (t * s1_y)
+        }
+    }
+    return null; // No collision
+}
+
+function normalize(array) {
+    var sum=0;
+    for (var i=0; i<array.length; i++) {
+        sum+=array[i][1];
+    }
+    for (var i=0; i<array.length; i++) {
+        array[i][1]/=sum;
+    }
+}
+
+function extractAndNormalize(array, from, to) {
+    if (! (Array.isArray(array))) return;
+    var newArray=[];
+    var j=0;
+    for (var i=0; i<array.length; i++) {
+        if ( (! from || array[i][0]>=from)  && (! to || array[i][0]<=to)) {
+            newArray[j++]=[array[i][0],array[i][1]];
+        }
+    }
+    normalize(newArray);
+    return newArray;
+}
+
+function calculateOverlapFromDiff(diffs) {
+    var sumPos=0;
+    for (var i=0; i<diffs.length; i++) {
+        sumPos+=Math.abs(diffs[i][1]);
+    }
+    return 1-sumPos;
+}
