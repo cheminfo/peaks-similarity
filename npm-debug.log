@@ -1,0 +1,205 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/lpatiny/.nvm/versions/node/v0.12.0/bin/node',
+1 verbose cli   '/Users/lpatiny/.nvm/versions/node/v0.12.0/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'node-inspector' ]
+2 info using npm@2.5.1
+3 info using node@v0.12.0
+4 silly cache add args [ 'node-inspector', null ]
+5 verbose cache add spec node-inspector
+6 silly cache add parsed spec { raw: 'node-inspector',
+6 silly cache add   scope: null,
+6 silly cache add   name: 'node-inspector',
+6 silly cache add   rawSpec: '',
+6 silly cache add   spec: '*',
+6 silly cache add   type: 'range' }
+7 verbose addNamed node-inspector@*
+8 silly addNamed semver.valid null
+9 silly addNamed semver.validRange *
+10 silly addNameRange { name: 'node-inspector', range: '*', hasData: false }
+11 silly mapToRegistry name node-inspector
+12 silly mapToRegistry using default registry
+13 silly mapToRegistry registry https://registry.npmjs.org/
+14 silly mapToRegistry uri https://registry.npmjs.org/node-inspector
+15 verbose addNameRange registry:https://registry.npmjs.org/node-inspector not in flight; fetching
+16 verbose request uri https://registry.npmjs.org/node-inspector
+17 verbose request no auth needed
+18 info attempt registry request try #1 at 4:04:54 PM
+19 verbose request id b82a6f171d9c7342
+20 verbose etag "A8ABYYIQNE384VWZJPEGF1G3W"
+21 http request GET https://registry.npmjs.org/node-inspector
+22 http 304 https://registry.npmjs.org/node-inspector
+23 silly get cb [ 304,
+23 silly get   { date: 'Tue, 17 Feb 2015 15:04:54 GMT',
+23 silly get     server: 'Apache',
+23 silly get     via: '1.1 varnish',
+23 silly get     'last-modified': 'Tue, 17 Feb 2015 15:04:55 GMT',
+23 silly get     'cache-control': 'max-age=60',
+23 silly get     etag: '"A8ABYYIQNE384VWZJPEGF1G3W"',
+23 silly get     age: '0',
+23 silly get     'x-served-by': 'cache-lcy1125-LCY',
+23 silly get     'x-cache': 'HIT',
+23 silly get     'x-cache-hits': '1',
+23 silly get     'x-timer': 'S1424185494.746745,VS0,VE641',
+23 silly get     vary: 'Accept',
+23 silly get     'content-length': '0',
+23 silly get     'keep-alive': 'timeout=10, max=50',
+23 silly get     connection: 'Keep-Alive' } ]
+24 verbose etag https://registry.npmjs.org/node-inspector from cache
+25 verbose get saving node-inspector to /Users/lpatiny/.npm/registry.npmjs.org/node-inspector/.cache.json
+26 silly addNameRange number 2 { name: 'node-inspector', range: '*', hasData: true }
+27 silly addNameRange versions [ 'node-inspector',
+27 silly addNameRange   [ '0.0.1',
+27 silly addNameRange     '0.0.2',
+27 silly addNameRange     '0.0.3',
+27 silly addNameRange     '0.0.4',
+27 silly addNameRange     '0.1.0',
+27 silly addNameRange     '0.1.1',
+27 silly addNameRange     '0.1.2',
+27 silly addNameRange     '0.1.3',
+27 silly addNameRange     '0.1.4',
+27 silly addNameRange     '0.1.5',
+27 silly addNameRange     '0.1.6',
+27 silly addNameRange     '0.1.7',
+27 silly addNameRange     '0.1.8',
+27 silly addNameRange     '0.1.9',
+27 silly addNameRange     '0.1.10',
+27 silly addNameRange     '0.3.0',
+27 silly addNameRange     '0.3.1',
+27 silly addNameRange     '0.3.2',
+27 silly addNameRange     '0.3.3',
+27 silly addNameRange     '0.3.4',
+27 silly addNameRange     '0.4.0',
+27 silly addNameRange     '0.5.0',
+27 silly addNameRange     '0.6.0',
+27 silly addNameRange     '0.6.1',
+27 silly addNameRange     '0.6.2',
+27 silly addNameRange     '0.7.0-1',
+27 silly addNameRange     '0.2.0-beta1',
+27 silly addNameRange     '0.2.0-beta2',
+27 silly addNameRange     '0.2.0-beta3',
+27 silly addNameRange     '0.2.0-beta4',
+27 silly addNameRange     '0.3.0-preview1',
+27 silly addNameRange     '0.7.0-2',
+27 silly addNameRange     '0.7.0',
+27 silly addNameRange     '0.7.1',
+27 silly addNameRange     '0.7.2',
+27 silly addNameRange     '0.7.3',
+27 silly addNameRange     '0.7.4',
+27 silly addNameRange     '0.8.0',
+27 silly addNameRange     '0.8.1',
+27 silly addNameRange     '0.8.3' ] ]
+28 verbose addNamed node-inspector@0.8.3
+29 silly addNamed semver.valid 0.8.3
+30 silly addNamed semver.validRange 0.8.3
+31 silly cache afterAdd node-inspector@0.8.3
+32 verbose afterAdd /Users/lpatiny/.npm/node-inspector/0.8.3/package/package.json not in flight; writing
+33 verbose afterAdd /Users/lpatiny/.npm/node-inspector/0.8.3/package/package.json written
+34 silly install resolved [ { name: 'node-inspector',
+34 silly install resolved     version: '0.8.3',
+34 silly install resolved     description: 'Web Inspector based nodeJS debugger',
+34 silly install resolved     homepage: 'http://github.com/node-inspector/node-inspector',
+34 silly install resolved     author: { name: 'Danny Coates', email: 'dannycoates@gmail.com' },
+34 silly install resolved     keywords: [ 'debug', 'debugger', 'inspector', 'profiler' ],
+34 silly install resolved     repository:
+34 silly install resolved      { type: 'git',
+34 silly install resolved        url: 'http://github.com/node-inspector/node-inspector.git' },
+34 silly install resolved     engines: { node: '>=0.8.0' },
+34 silly install resolved     bin:
+34 silly install resolved      { 'node-inspector': './bin/inspector.js',
+34 silly install resolved        'node-debug': './bin/node-debug.js' },
+34 silly install resolved     dependencies:
+34 silly install resolved      { express: '^4.0',
+34 silly install resolved        'serve-favicon': '^2.1.1',
+34 silly install resolved        async: '~0.9',
+34 silly install resolved        glob: '^3.2.1',
+34 silly install resolved        rc: '~0.5.0',
+34 silly install resolved        'strong-data-uri': '~0.1.0',
+34 silly install resolved        debug: '^1.0',
+34 silly install resolved        ws: '~0.4.31',
+34 silly install resolved        opener: '^1.3.0',
+34 silly install resolved        yargs: '^1.2.1',
+34 silly install resolved        which: '^1.0.5',
+34 silly install resolved        'v8-debug': '~0.3.0',
+34 silly install resolved        'v8-profiler': '~5.2.0',
+34 silly install resolved        semver: '^3.0.1' },
+34 silly install resolved     devDependencies:
+34 silly install resolved      { mocha: '^1.21',
+34 silly install resolved        chai: '^1.9',
+34 silly install resolved        jshint: '^2.4.4',
+34 silly install resolved        'fs-extra': '~0.8.1' },
+34 silly install resolved     preferGlobal: true,
+34 silly install resolved     scripts: { pretest: 'jshint .', test: 'mocha' },
+34 silly install resolved     contributors:
+34 silly install resolved      [ [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object],
+34 silly install resolved        [Object] ],
+34 silly install resolved     gitHead: 'd70cf70b9858e4a3da76920e96664fc5e44285c5',
+34 silly install resolved     bugs: { url: 'https://github.com/node-inspector/node-inspector/issues' },
+34 silly install resolved     _id: 'node-inspector@0.8.3',
+34 silly install resolved     _shasum: '2eac57771973c6eb49100ef4c9caa6ae0bcd8911',
+34 silly install resolved     _from: 'node-inspector@*',
+34 silly install resolved     _npmVersion: '1.4.24',
+34 silly install resolved     _npmUser: { name: '3y3', email: '3y3@bk.ru' },
+34 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+34 silly install resolved     dist:
+34 silly install resolved      { shasum: '2eac57771973c6eb49100ef4c9caa6ae0bcd8911',
+34 silly install resolved        tarball: 'http://registry.npmjs.org/node-inspector/-/node-inspector-0.8.3.tgz' },
+34 silly install resolved     directories: {},
+34 silly install resolved     _resolved: 'https://registry.npmjs.org/node-inspector/-/node-inspector-0.8.3.tgz',
+34 silly install resolved     readme: 'ERROR: No README data found!' } ]
+35 info install node-inspector@0.8.3 into /Users/lpatiny/.nvm/versions/node/v0.12.0/lib
+36 info installOne node-inspector@0.8.3
+37 verbose installOne of node-inspector to /Users/lpatiny/.nvm/versions/node/v0.12.0/lib not in flight; installing
+38 warn locking Error: EACCES, open '/Users/lpatiny/.npm/_locks/node-inspector-b9a589a0a57c9dbd.lock'
+38 warn locking     at Error (native)
+38 warn locking  /Users/lpatiny/.npm/_locks/node-inspector-b9a589a0a57c9dbd.lock failed { [Error: EACCES, open '/Users/lpatiny/.npm/_locks/node-inspector-b9a589a0a57c9dbd.lock']
+38 warn locking   errno: -13,
+38 warn locking   code: 'EACCES',
+38 warn locking   path: '/Users/lpatiny/.npm/_locks/node-inspector-b9a589a0a57c9dbd.lock' }
+39 verbose stack Error: Attempt to unlock /Users/lpatiny/.nvm/versions/node/v0.12.0/lib/node_modules/node-inspector, which hasn't been locked
+39 verbose stack     at unlock (/Users/lpatiny/.nvm/versions/node/v0.12.0/lib/node_modules/npm/lib/utils/locker.js:66:11)
+39 verbose stack     at cb (/Users/lpatiny/.nvm/versions/node/v0.12.0/lib/node_modules/npm/lib/install.js:929:5)
+39 verbose stack     at /Users/lpatiny/.nvm/versions/node/v0.12.0/lib/node_modules/npm/lib/install.js:933:20
+39 verbose stack     at /Users/lpatiny/.nvm/versions/node/v0.12.0/lib/node_modules/npm/lib/utils/locker.js:40:9
+39 verbose stack     at cb (/Users/lpatiny/.nvm/versions/node/v0.12.0/lib/node_modules/npm/node_modules/lockfile/lockfile.js:149:38)
+39 verbose stack     at /Users/lpatiny/.nvm/versions/node/v0.12.0/lib/node_modules/npm/node_modules/lockfile/lockfile.js:177:38
+39 verbose stack     at FSReqWrap.oncomplete (fs.js:99:15)
+40 verbose cwd /Users/lpatiny/git/cheminfo-js/peaksSimilarity
+41 error Darwin 14.1.0
+42 error argv "/Users/lpatiny/.nvm/versions/node/v0.12.0/bin/node" "/Users/lpatiny/.nvm/versions/node/v0.12.0/bin/npm" "install" "-g" "node-inspector"
+43 error node v0.12.0
+44 error npm  v2.5.1
+45 error Attempt to unlock /Users/lpatiny/.nvm/versions/node/v0.12.0/lib/node_modules/node-inspector, which hasn't been locked
+46 error If you need help, you may report this error at:
+46 error     <http://github.com/npm/npm/issues>
+47 verbose exit [ 1, true ]

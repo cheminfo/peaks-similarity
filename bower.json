@@ -1,0 +1,28 @@
+{
+  "name": "peaks-similarity",
+  "version": "1.0.0",
+  "description": "Peaks similarity - calculate the similarity between 2 ordered array of peaks",
+  "keywords": [
+    "similarity",
+    "mass spectroscopy",
+    "spectroscopy"
+  ],
+  "main": [
+    "dist/peaks-similarity.js",
+    "dist/peaks-similarity.min.js"
+  ],
+  "authors": [
+    "Michaël Zasso"
+  ],
+  "homepage": "https://github.com/cheminfo-js/peaks-similarity",
+  "license": "MIT",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "ignore": [
+    "/*",
+    "!dist/*"
+  ]
+}
