@@ -10,7 +10,7 @@
   "config": {
     "name": "peaks-similarity"
   },
-  "author": "Michaël Zasso",
+  "author": "Luc Patiny",
   "repository": "cheminfo-js/peaks-similarity",
   "bugs": {
     "url": "https://github.com/cheminfo-js/peaks-similarity/issues"
