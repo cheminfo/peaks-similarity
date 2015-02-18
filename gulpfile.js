@@ -26,7 +26,7 @@ var succint = '// <%= pkg.name %>@v<%= pkg.version %>, <%= pkg.license %> licens
 
 var standalone = pkg.config ? (pkg.config.name ? pkg.config.name : pkg.name) : pkg.name;
 
-gulp.task('build', function() {
+gulp.task('build', ['clean:dist'], function() {
     var bundler = browserify({
         entries: ['./src/index.js'],
         standalone: standalone
