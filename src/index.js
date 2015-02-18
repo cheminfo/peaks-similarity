@@ -219,7 +219,7 @@ module.exports = function Comparator(options) {
      */
     function checkArray(points) {
         // if it is already a 2D array of points, we just return them
-        if (points.constructor === Array && points[0].constructor === Array && points[0].length===2) return points;
+        if (points.length && points[0] && points[0].length===2) return points;
         var xs=points[0];
         var ys=points[1];
         var array=[];
