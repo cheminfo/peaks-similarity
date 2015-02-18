@@ -9,20 +9,18 @@ Peaks similarity - calculate a similarity between 0 and 1  of 2 arrays of [x,y] 
 
 ## Description
 
-The idea is to calculate a similarity value between 0 and 1 between to array of peaks ([x,y] points).
+The idea is to calculate a similarity value between 0 and 1 between two arrays of peaks ([x,y] points).
 
-
+```javascript
 var peaks1=[[1,1],[2,2]];
 var peaks2=[[1,2],[2,1]];
 
+var Comparator = require('..');
+var comparator=new Comparator({bottomWidth: 4, topWidth: 2});
+var result=comparator.getSimilarity(peaks1, peaks2);
 
-var similarity = require('.')(options);
-similarity.setPeaks1(peaks1);
-similarity.setPeaks2(peaks2);
-// similarity.setFromTo(from,to);
-// similarity.setOptions(options);
-similarity.getSimilarity();
-
+console.log(result);
+```
 
 
 ## License
