@@ -1,6 +1,6 @@
 /**
  * peaks-similarity - Peaks similarity - calculate the similarity between 2 ordered array of peaks
- * @version v1.0.1
+ * @version v1.0.2
  * @link https://github.com/cheminfo-js/peaks-similarity
  * @license MIT
  */
@@ -56,6 +56,7 @@ module.exports = function Comparator(options) {
     }
 
     function setFromTo(newFrom, newTo) {
+        if (newFrom===from && newTo===to) return
         from=newFrom;
         to=newTo;
         array1Extract=extractAndNormalize(array1, from, to);
@@ -63,7 +64,6 @@ module.exports = function Comparator(options) {
     }
 
     function getOverlap(x1, y1, x2, y2) {
-
         var factor=2/(widthTop+widthBottom); // correction for surface=1
         if (y1===0 || y2===0) return 0;
         if (x1===x2) { // they have the same position
