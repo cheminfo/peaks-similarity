@@ -1,6 +1,6 @@
 /**
  * peaks-similarity - Peaks similarity - calculate the similarity between 2 ordered array of peaks
- * @version v1.0.2
+ * @version v1.0.3
  * @link https://github.com/cheminfo-js/peaks-similarity
  * @license MIT
  */
@@ -236,10 +236,8 @@ function normalize(array) {
     for (var i=0; i<array.length; i++) {
         sum+=array[i][1];
     }
-    if (sum>0) {
-        for (var i=0; i<array.length; i++) {
-            array[i][1]/=sum;
-        }
+    for (var i=0; i<array.length; i++) {
+        array[i][1]/=sum;
     }
 }
 
