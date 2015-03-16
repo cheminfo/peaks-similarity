@@ -229,9 +229,12 @@ function normalize(array) {
     for (var i=0; i<array.length; i++) {
         sum+=array[i][1];
     }
-    for (var i=0; i<array.length; i++) {
-        array[i][1]/=sum;
+    if (sum!=0) {
+        for (var i=0; i<array.length; i++) {
+            array[i][1]/=sum;
+        }
     }
+
 }
 
 function extractAndNormalize(array, from, to) {
