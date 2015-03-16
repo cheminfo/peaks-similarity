@@ -28,10 +28,10 @@ console.log(result);
   [MIT](./LICENSE)
 
 [npm-image]: https://img.shields.io/npm/v/peaks-similarity.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/peaks-similarity
+[npm-url]: https://www.npmjs.com/package/peaks-similarity
 [travis-image]: https://img.shields.io/travis/cheminfo-js/peaks-similarity/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/cheminfo-js/peaks-similarity
 [david-image]: https://img.shields.io/david/cheminfo-js/peaks-similarity.svg?style=flat-square
 [david-url]: https://david-dm.org/cheminfo-js/peaks-similarity
 [download-image]: https://img.shields.io/npm/dm/peaks-similarity.svg?style=flat-square
-[download-url]: https://npmjs.org/package/peaks-similarity
+[download-url]: https://www.npmjs.com/package/peaks-similarity
