@@ -2,7 +2,7 @@
 
 module.exports = function Comparator(options) {
     
-    var widthTop, widthBottom, from, to, array1Extract, array2Extract, widthSlope;
+    var widthTop, widthBottom, from, to, array1Extract, array2Extract, widthSlope, array1ExtractInfo, array2ExtractInfo;
 
 
     setOptions(options);
@@ -26,11 +26,15 @@ module.exports = function Comparator(options) {
 
     function setPeaks1(anArray) {
         array1=checkArray(anArray);
-        array1Extract=extractAndNormalize(array1, from, to);
+        var extract=extractAndNormalize(array1, from, to);
+        array1Extract=extract.data;
+        array1ExtractInfo=extract.info;
     }
     function setPeaks2(anArray) {
         array2=checkArray(anArray);
-        array2Extract=extractAndNormalize(array2, from, to);
+        var extract=extractAndNormalize(array2, from, to);
+        array2Extract=extract.data;
+        array2ExtractInfo=extract.info;
     }
 
     function getExtract1() {
@@ -39,6 +43,15 @@ module.exports = function Comparator(options) {
 
     function getExtract2() {
         return array2Extract;
+    }
+
+
+    function getExtractInfo1() {
+        return array1ExtractInfo;
+    }
+
+    function getExtractInfo2() {
+        return array2ExtractInfo;
     }
 
     function setTrapezoid(newWidthBottom, newWidthTop) {
@@ -52,8 +65,12 @@ module.exports = function Comparator(options) {
         if (newFrom===from && newTo===to) return
         from=newFrom;
         to=newTo;
-        array1Extract=extractAndNormalize(array1, from, to);
-        array2Extract=extractAndNormalize(array2, from, to);
+        var extract=extractAndNormalize(array1, from, to);
+        array1Extract=extract.data;
+        array1ExtractInfo=extract.info;
+        var extract=extractAndNormalize(array2, from, to);
+        array2Extract=extract.data;
+        array2ExtractInfo=extract.info;
     }
 
     function getOverlap(x1, y1, x2, y2) {
@@ -180,6 +197,8 @@ module.exports = function Comparator(options) {
         result.diff=calculateDiff();
         result.extract1=getExtract1();
         result.extract2=getExtract2();
+        result.extractInfo1=getExtractInfo1();
+        result.extractInfo2=getExtractInfo2();
         result.similarity=calculateOverlapFromDiff(result.diff);
         return result;
     }
@@ -188,6 +207,8 @@ module.exports = function Comparator(options) {
     this.setPeaks2 = setPeaks2;
     this.getExtract1 = getExtract1;
     this.getExtract2 = getExtract2;
+    this.getExtractInfo1 = getExtractInfo1;
+    this.getExtractInfo2 = getExtractInfo2;
     this.setFromTo = setFromTo;
     this.setOptions = setOptions;
     this.setTrapezoid = setTrapezoid;
@@ -226,19 +247,30 @@ function getIntersection(segment1, segment2) {
 
 function normalize(array) {
     var sum=0;
+    var min=Number.MAX_VALUE;
+    var max=Number.MIN_VALUE;
     for (var i=0; i<array.length; i++) {
         sum+=array[i][1];
+        if (array[i][1]<min) min=array[i][1];
+        if (array[i][1]>max) max=array[i][1];
     }
     if (sum!=0) {
         for (var i=0; i<array.length; i++) {
             array[i][1]/=sum;
         }
     }
-
+    return {
+        sum: sum,
+        min: min,
+        max: max
+    };
 }
 
 function extractAndNormalize(array, from, to) {
-    if (! (Array.isArray(array))) return;
+    if (! (Array.isArray(array))) return {
+        info: undefined,
+        data: undefined
+    };
     var newArray=[];
     var j=0;
     for (var i=0; i<array.length; i++) {
@@ -246,8 +278,11 @@ function extractAndNormalize(array, from, to) {
             newArray[j++]=[array[i][0],array[i][1]];
         }
     }
-    normalize(newArray);
-    return newArray;
+    var info=normalize(newArray);
+    return {
+        info: info,
+        data: newArray
+    };
 }
 
 function calculateOverlapFromDiff(diffs) {

@@ -69,11 +69,15 @@ describe('We check that we can change the peaks', function () {
 
 var comparator6=new Comparator();
 comparator6.setTrapezoid(0.2,0.2);
-comparator6.setPeaks1([[1,1],[2,1]]);
-comparator6.setPeaks2([[1,1],[2,1]]);
+comparator6.setPeaks1([[1,2],[2,3]]);
+comparator6.setPeaks2([[1,2],[2,3]]);
 describe('We check similarity of identical spectra', function () {
     it('getSimilarity', function () {
-        comparator6.getSimilarity().similarity.should.equal(1);
+        var similarity=comparator6.getSimilarity();
+        similarity.similarity.should.equal(1);
+        similarity.extractInfo1.sum.should.equal(5);
+        similarity.extractInfo1.min.should.equal(2);
+        similarity.extractInfo1.max.should.equal(3);
     });
 });
 
@@ -110,3 +114,5 @@ describe('We check similarity with overlap of trapezoid', function () {
    //     comparator9.getSimilarity([[1,1],[2,1]],[[3,1],[4,1]]).similarity.should.equal(0.25);
     });
 });
+
+
