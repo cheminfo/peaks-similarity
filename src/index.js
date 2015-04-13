@@ -73,7 +73,63 @@ module.exports = function Comparator(options) {
         array2ExtractInfo=extract.info;
     }
 
+
     function getOverlap(x1, y1, x2, y2) {
+        if (y1===0 || y2===0) return 0;
+
+        var diff=Math.abs(x1-x2);
+        if (diff>=widthBottom) return 0;
+        if (diff<widthTop) return Math.min(y1,y2);
+
+        if (y1===y2) { // do they have the same height ???
+            // we need to find the common length
+            if (diff<=widthTop) {
+                return (((widthTop+widthBottom)/2-diff)*y1)*factor;
+            } else if (diff<=widthBottom) {
+                return (widthBottom-diff)*y1/2*(diff-widthTop)/(widthBottom-widthTop)*factor;
+            }
+            return 0;
+        } else { // the height are different and not the same position ...
+            // we need to consider only one segment to find its intersection
+
+            var small=Math.min(y1,y2);
+            var big=Math.max(y1,y2);
+
+            var targets=[
+                [[0,0],[widthSlope,small]],
+                [[widthSlope,small],[widthSlope+widthTop,small]],
+                [[widthTop+widthSlope,small],[widthBottom,0]]
+            ];
+            if ((x1>x2 && y1>y2) || (x1<x2 && y1<y2)) {
+                var segment=[[diff,0],[diff+widthSlope,big]];
+            } else {
+                var segment=[[diff+widthSlope,big],[diff,0]];
+            }
+
+
+
+            for (var i=0; i<3; i++) {
+                var intersection=getIntersection(targets[i],segment);
+                if (intersection) {
+                    switch (i) {
+                        case 0:
+                            return small-((diff*intersection.y/2))*factor;
+                        case 1: // to simplify ...
+                            //     console.log("           ",widthSlope,small,big,intersection.x)
+                            return ((widthSlope*small/(2*big))*small+
+                                (widthTop+widthSlope-intersection.x)*small+
+                                widthSlope*small/2)*factor;
+                        case 2:
+                            return ((widthBottom-diff)*intersection.y/2)*factor;
+                    }
+                }
+            }
+        }
+        return NaN;
+    }
+
+    // This is the old trapezoid similarity
+    function getOverlapTrapezoid(x1, y1, x2, y2) {
         var factor=2/(widthTop+widthBottom); // correction for surface=1
         if (y1===0 || y2===0) return 0;
         if (x1===x2) { // they have the same position
