@@ -1,6 +1,6 @@
 /**
  * peaks-similarity - Peaks similarity - calculate the similarity between 2 ordered array of peaks
- * @version v1.2.0
+ * @version v1.2.1
  * @link https://github.com/cheminfo-js/peaks-similarity
  * @license MIT
  */
