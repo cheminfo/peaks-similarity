@@ -1,6 +1,6 @@
 /**
  * peaks-similarity - Peaks similarity - calculate the similarity between 2 ordered array of peaks
- * @version v1.1.0
+ * @version v1.2.0
  * @link https://github.com/cheminfo-js/peaks-similarity
  * @license MIT
  */
@@ -80,7 +80,26 @@ module.exports = function Comparator(options) {
         array2ExtractInfo=extract.info;
     }
 
+
     function getOverlap(x1, y1, x2, y2) {
+        if (y1===0 || y2===0) return 0;
+
+        // TAKE CARE !!! We multiply the diff by 2 !!!
+        var diff=Math.abs(x1-x2)*2;
+
+        if (diff>widthBottom) return 0;
+        if (diff<=widthTop) {
+            return Math.min(y1,y2);
+        }
+
+        var maxValue=Math.max(y1,y2)*(widthBottom-diff)/(widthBottom-widthTop);
+        return Math.min(y1, y2, maxValue);
+
+        return NaN;
+    }
+
+    // This is the old trapezoid similarity
+    function getOverlapTrapezoid(x1, y1, x2, y2) {
         var factor=2/(widthTop+widthBottom); // correction for surface=1
         if (y1===0 || y2===0) return 0;
         if (x1===x2) { // they have the same position
@@ -157,7 +176,12 @@ module.exports = function Comparator(options) {
         while (pos1<newFirst.length) {
             var diff=newFirst[pos1][0]-array2Extract[pos2][0];
             if (Math.abs(diff)<widthBottom) { // there is some overlap
-                var overlap=getOverlap(newFirst[pos1][0], newFirst[pos1][1], newSecond[pos2][0], newSecond[pos2][1], widthTop, widthBottom);
+                if (options.trapezoid) {
+                    var overlap=getOverlapTrapezoid(newFirst[pos1][0], newFirst[pos1][1], newSecond[pos2][0], newSecond[pos2][1], widthTop, widthBottom);
+
+                } else {
+                    var overlap=getOverlap(newFirst[pos1][0], newFirst[pos1][1], newSecond[pos2][0], newSecond[pos2][1], widthTop, widthBottom);
+                }
                 newFirst[pos1][1]-=overlap;
                 newSecond[pos2][1]-=overlap;
                 if (pos2<(array2Extract.length-1)) {
