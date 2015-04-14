@@ -117,7 +117,7 @@ describe('We check similarity with overlap of trapezoid', function () {
         comparator9.getSimilarity([[1,1],[2,1]],[[2.5,1]]).similarity.should.equal(1);
         comparator9.getSimilarity([[1,3],[2,1]],[[2.5,1]]).similarity.should.equal(0.75);
         comparator9.getSimilarity([[1,1],[2,1]],[[2.5,1],[3.5,1]]).similarity.should.equal(0.75);
-        comparator9.getSimilarity([[1,3],[2,1]],[[2.5,1],[3.5,1]]).similarity.should.equal(0.875);
+        comparator9.getSimilarity([[1,3],[2,1]],[[2.5,1],[3.5,1]]).similarity.should.equal(0.625);
 
 
     });
