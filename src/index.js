@@ -77,54 +77,17 @@ module.exports = function Comparator(options) {
     function getOverlap(x1, y1, x2, y2) {
         if (y1===0 || y2===0) return 0;
 
-        var diff=Math.abs(x1-x2);
-        if (diff>=widthBottom) return 0;
-        if (diff<widthTop) return Math.min(y1,y2);
+        // TAKE CARE !!! We multiply the diff by 2 !!!
+        var diff=Math.abs(x1-x2)*2;
 
-        if (y1===y2) { // do they have the same height ???
-            // we need to find the common length
-            if (diff<=widthTop) {
-                return (((widthTop+widthBottom)/2-diff)*y1)*factor;
-            } else if (diff<=widthBottom) {
-                return (widthBottom-diff)*y1/2*(diff-widthTop)/(widthBottom-widthTop)*factor;
-            }
-            return 0;
-        } else { // the height are different and not the same position ...
-            // we need to consider only one segment to find its intersection
-
-            var small=Math.min(y1,y2);
-            var big=Math.max(y1,y2);
-
-            var targets=[
-                [[0,0],[widthSlope,small]],
-                [[widthSlope,small],[widthSlope+widthTop,small]],
-                [[widthTop+widthSlope,small],[widthBottom,0]]
-            ];
-            if ((x1>x2 && y1>y2) || (x1<x2 && y1<y2)) {
-                var segment=[[diff,0],[diff+widthSlope,big]];
-            } else {
-                var segment=[[diff+widthSlope,big],[diff,0]];
-            }
-
-
-
-            for (var i=0; i<3; i++) {
-                var intersection=getIntersection(targets[i],segment);
-                if (intersection) {
-                    switch (i) {
-                        case 0:
-                            return small-((diff*intersection.y/2))*factor;
-                        case 1: // to simplify ...
-                            //     console.log("           ",widthSlope,small,big,intersection.x)
-                            return ((widthSlope*small/(2*big))*small+
-                                (widthTop+widthSlope-intersection.x)*small+
-                                widthSlope*small/2)*factor;
-                        case 2:
-                            return ((widthBottom-diff)*intersection.y/2)*factor;
-                    }
-                }
-            }
+        if (diff>widthBottom) return 0;
+        if (diff<=widthTop) {
+            return Math.min(y1,y2);
         }
+
+        var maxValue=Math.max(y1,y2)*(widthBottom-diff)/(widthBottom-widthTop);
+        return Math.min(y1, y2, maxValue);
+
         return NaN;
     }
 
@@ -206,7 +169,12 @@ module.exports = function Comparator(options) {
         while (pos1<newFirst.length) {
             var diff=newFirst[pos1][0]-array2Extract[pos2][0];
             if (Math.abs(diff)<widthBottom) { // there is some overlap
-                var overlap=getOverlap(newFirst[pos1][0], newFirst[pos1][1], newSecond[pos2][0], newSecond[pos2][1], widthTop, widthBottom);
+                if (options.trapezoid) {
+                    var overlap=getOverlapTrapezoid(newFirst[pos1][0], newFirst[pos1][1], newSecond[pos2][0], newSecond[pos2][1], widthTop, widthBottom);
+
+                } else {
+                    var overlap=getOverlap(newFirst[pos1][0], newFirst[pos1][1], newSecond[pos2][0], newSecond[pos2][1], widthTop, widthBottom);
+                }
                 newFirst[pos1][1]-=overlap;
                 newSecond[pos2][1]-=overlap;
                 if (pos2<(array2Extract.length-1)) {

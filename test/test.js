@@ -95,9 +95,9 @@ var comparator8=new Comparator();
 comparator8.setTrapezoid(2,2);
 describe('We check similarity with overlap', function () {
     it('getSimilarity', function () {
-        comparator8.getSimilarity([[1,1],[2,1]],[[1,1]]).similarity.should.equal(0.75);
-        comparator8.getSimilarity([[1,1],[2,1]],[[1,1],[3,1]]).similarity.should.equal(0.75);
-        comparator8.getSimilarity([[1,1],[2,1]],[[3,1],[4,1]]).similarity.should.equal(0.25);
+        comparator8.getSimilarity([[1,1],[2,1]],[[1,1]]).similarity.should.equal(1);
+        comparator8.getSimilarity([[1,1],[2,1]],[[1,1],[3,1]]).similarity.should.equal(1);
+        comparator8.getSimilarity([[1,1],[2,1]],[[3,1],[4,1]]).similarity.should.equal(0.5);
     });
 });
 
@@ -105,13 +105,21 @@ var comparator9=new Comparator();
 comparator9.setTrapezoid(4,2);
 describe('We check similarity with overlap of trapezoid', function () {
     it('getSimilarity', function () {
-        comparator9.getSimilarity([[1,1],[2,1]],[[1,1]]).similarity.should.equal(0.8333333333333333);
-        comparator9.getSimilarity([[1,1]],[[1,1],[2,1]]).similarity.should.equal(0.8333333333333333);
-        comparator9.getSimilarity([[1,1]],[[4,1]]).similarity.should.equal(0.08333333333333337);
-        comparator9.getSimilarity([[1,1]],[[1,1],[4,1]]).similarity.should.equal(0.5416666666666667);
+        comparator9.getSimilarity([[1,1],[2,1]],[[1,1]]).similarity.should.equal(1);
+        comparator9.getSimilarity([[1,1]],[[1,1],[2,1]]).similarity.should.equal(1);
+        comparator9.getSimilarity([[1,1]],[[4,1]]).similarity.should.equal(0.0);
+        comparator9.getSimilarity([[1,1]],[[1,1],[4,1]]).similarity.should.equal(0.5);
 
-   //     comparator9.getSimilarity([[1,1],[2,1]],[[1,1],[3,1]]).similarity.should.equal(0.75);
-   //     comparator9.getSimilarity([[1,1],[2,1]],[[3,1],[4,1]]).similarity.should.equal(0.25);
+        comparator9.getSimilarity([[1,1],[2,1]],[[1,1],[3,1]]).similarity.should.equal(1);
+        comparator9.getSimilarity([[1,1],[2,1]],[[3,1],[4,1]]).similarity.should.equal(0.5);
+
+        comparator9.getSimilarity([[1,1]],[[2.5,1]]).similarity.should.equal(0.5);
+        comparator9.getSimilarity([[1,1],[2,1]],[[2.5,1]]).similarity.should.equal(1);
+        comparator9.getSimilarity([[1,3],[2,1]],[[2.5,1]]).similarity.should.equal(0.75);
+        comparator9.getSimilarity([[1,1],[2,1]],[[2.5,1],[3.5,1]]).similarity.should.equal(0.75);
+        comparator9.getSimilarity([[1,3],[2,1]],[[2.5,1],[3.5,1]]).similarity.should.equal(0.875);
+
+
     });
 });
 
