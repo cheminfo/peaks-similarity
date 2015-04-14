@@ -22,6 +22,11 @@ var result=comparator.getSimilarity(peaks1, peaks2);
 console.log(result);
 ```
 
+options
+ * bottomWidth : bottom width of the trapezoid (default: 2)
+ * topWidth : top width of the trapezoid (default: 1)
+ * trapezoid : Should we use overlapping of trapezoids surface (default: false). If trapezoid is false it is based only on peaks and not surface.
+
 
 ## License
 
