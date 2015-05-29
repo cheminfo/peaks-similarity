@@ -1,6 +1,6 @@
 /**
  * peaks-similarity - Peaks similarity - calculate the similarity between 2 ordered array of peaks
- * @version v1.3.0
+ * @version v1.3.1
  * @link https://github.com/cheminfo-js/peaks-similarity
  * @license MIT
  */
@@ -96,7 +96,7 @@ module.exports = function Comparator(options) {
         from=newFrom;
         to=newTo;
         if (common) {
-            var extracts=commonExtractAndNormalize(array1, array2, withBottom, from, to);
+            var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to);
             array1Extract=extracts.data1;
             array1ExtractInfo=extracts.info1;
             array2Extract=extracts.data2;
