@@ -26,7 +26,7 @@ options
  * bottomWidth : bottom width of the trapezoid (default: 2)
  * topWidth : top width of the trapezoid (default: 1)
  * trapezoid : Should we use overlapping of trapezoids surface (default: false). If trapezoid is false it is based only on peaks and not surface.
-
+ * common: Only take the common part of the array based on the bottomWidth of the trapezoid
 
 ## License
 

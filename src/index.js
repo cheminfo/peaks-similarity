@@ -2,8 +2,9 @@
 
 module.exports = function Comparator(options) {
     
-    var widthTop, widthBottom, from, to, array1Extract, array2Extract, widthSlope, array1ExtractInfo, array2ExtractInfo;
-
+    var widthTop, widthBottom, from, to;
+    var array1Extract, array2Extract, widthSlope, array1ExtractInfo, array2ExtractInfo;
+    var common;
 
     setOptions(options);
 
@@ -17,24 +18,44 @@ module.exports = function Comparator(options) {
 
     function setOptions(newOptions) {
         options=newOptions || {};
-        setTrapezoid(
-            options.widthBottom || widthBottom || 2,
-            options.widthTop || widthTop || 1
-        );
+        common=options.common || common || false;
+        if (options.widthBottom==undefined) {
+            options.widthBottom==widthBottom || 2;
+        }
+        if (options.widthTop==undefined) {
+            options.widthTop==widthTop || 1;
+        }
+        setTrapezoid(options.widthBottom, options.widthTop);
         setFromTo(options.from || from, options.to || to);
     }
 
     function setPeaks1(anArray) {
         array1=checkArray(anArray);
-        var extract=extractAndNormalize(array1, from, to);
-        array1Extract=extract.data;
-        array1ExtractInfo=extract.info;
+        if (common) {
+            var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to);
+            array1Extract=extracts.data1;
+            array1ExtractInfo=extracts.info1;
+            array2Extract=extracts.data2;
+            array2ExtractInfo=extracts.info2;
+        } else {
+            var extract=extractAndNormalize(array1, from, to);
+            array1Extract=extract.data;
+            array1ExtractInfo=extract.info;
+        }
     }
     function setPeaks2(anArray) {
         array2=checkArray(anArray);
-        var extract=extractAndNormalize(array2, from, to);
-        array2Extract=extract.data;
-        array2ExtractInfo=extract.info;
+        if (common) {
+            var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to);
+            array1Extract=extracts.data1;
+            array1ExtractInfo=extracts.info1;
+            array2Extract=extracts.data2;
+            array2ExtractInfo=extracts.info2;
+        } else {
+            var extract = extractAndNormalize(array2, from, to);
+            array2Extract = extract.data;
+            array2ExtractInfo = extract.info;
+        }
     }
 
     function getExtract1() {
@@ -55,6 +76,8 @@ module.exports = function Comparator(options) {
     }
 
     function setTrapezoid(newWidthBottom, newWidthTop) {
+        console.log(newWidthBottom, newWidthTop)
+
         widthTop=newWidthTop;
         widthBottom=newWidthBottom;
         widthSlope=(widthBottom-widthTop)/2;
@@ -65,12 +88,20 @@ module.exports = function Comparator(options) {
         if (newFrom===from && newTo===to) return
         from=newFrom;
         to=newTo;
-        var extract=extractAndNormalize(array1, from, to);
-        array1Extract=extract.data;
-        array1ExtractInfo=extract.info;
-        var extract=extractAndNormalize(array2, from, to);
-        array2Extract=extract.data;
-        array2ExtractInfo=extract.info;
+        if (common) {
+            var extracts=commonExtractAndNormalize(array1, array2, withBottom, from, to);
+            array1Extract=extracts.data1;
+            array1ExtractInfo=extracts.info1;
+            array2Extract=extracts.data2;
+            array2ExtractInfo=extracts.info2;
+        } else {
+            var extract=extractAndNormalize(array1, from, to);
+            array1Extract=extract.data;
+            array1ExtractInfo=extract.info;
+            var extract=extractAndNormalize(array2, from, to);
+            array2Extract=extract.data;
+            array2ExtractInfo=extract.info;
+        }
     }
 
 
@@ -237,8 +268,27 @@ module.exports = function Comparator(options) {
     this.setOptions = setOptions;
     this.setTrapezoid = setTrapezoid;
     this.getSimilarity = getSimilarity;
+    this.getCommonArray = getCommonArray;
 };
 
+
+// returns an new array based on array1 where there is a peak of array2 at a distance under width/2
+function getCommonArray(array1, array2, width) {
+    var newArray=[];
+    var pos2=0;
+    width/=2;
+    var j=0;
+
+    for (var i=0; i<array1.length; i++) {
+        while (pos2<array2.length && (array1[i][0]>(array2[pos2][0]+width))) {
+            pos2++;
+        }
+        if ((pos2<array2.length) && (array1[i][0]>array2[pos2][0]-width)) {
+            newArray[j++]=array1[i];
+        }
+    }
+    return newArray;
+}
 
 
 // Adapted from: http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/1968345#1968345
@@ -290,18 +340,43 @@ function normalize(array) {
     };
 }
 
+// this method will systemtatically take care of both array
+function commonExtractAndNormalize(array1, array2, width, from, to) {
+    if (! (Array.isArray(array1)) || ! (Array.isArray(array2))) return {
+        info: undefined,
+        data: undefined
+    };
+    var extract1=extract(array1, from, to);
+    var extract2=extract(array2, from, to);
+    var common1=getCommonArray(extract1, extract2, width);
+    var common2=getCommonArray(extract2, extract1, width);
+    var info1=normalize(common1);
+    var info2=normalize(common2);
+    return {
+        info1: info1,
+        info2: info2,
+        data1: common1,
+        data2: common2
+    }
+}
+
+function extract(array, from, to) {
+    var newArray=[];
+    var j=0;
+    for (var i=0; i<array.length; i++) {
+        if ( (! from || array[i][0]>=from)  && (! to || array[i][0]<=to)) {
+            newArray[j++] = [array[i][0], array[i][1]];
+        }
+    }
+    return newArray;
+}
+
 function extractAndNormalize(array, from, to) {
     if (! (Array.isArray(array))) return {
         info: undefined,
         data: undefined
     };
-    var newArray=[];
-    var j=0;
-    for (var i=0; i<array.length; i++) {
-        if ( (! from || array[i][0]>=from)  && (! to || array[i][0]<=to)) {
-            newArray[j++]=[array[i][0],array[i][1]];
-        }
-    }
+    var newArray=extract(array, from, to);
     var info=normalize(newArray);
     return {
         info: info,
