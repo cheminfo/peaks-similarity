@@ -85,7 +85,7 @@ module.exports = function Comparator(options) {
     function setFromTo(newFrom, newTo) {
         if (newFrom===from && newTo===to) return
         from=newFrom;
-        to=newTo;se
+        to=newTo;
         if (common) {
             var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to);
             array1Extract=extracts.data1;
