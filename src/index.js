@@ -76,8 +76,6 @@ module.exports = function Comparator(options) {
     }
 
     function setTrapezoid(newWidthBottom, newWidthTop) {
-        console.log(newWidthBottom, newWidthTop)
-
         widthTop=newWidthTop;
         widthBottom=newWidthBottom;
         widthSlope=(widthBottom-widthTop)/2;
@@ -87,7 +85,7 @@ module.exports = function Comparator(options) {
     function setFromTo(newFrom, newTo) {
         if (newFrom===from && newTo===to) return
         from=newFrom;
-        to=newTo;
+        to=newTo;se
         if (common) {
             var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to);
             array1Extract=extracts.data1;
