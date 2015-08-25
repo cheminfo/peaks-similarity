@@ -56,11 +56,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
+	const COMMON_NO=0;
+	const COMMON_FIRST=1;
+	const COMMON_SECOND=2;
+	const COMMON_BOTH=3; // should be a binary operation !
+
+
 	module.exports = function Comparator(options) {
 	    
 	    var widthTop, widthBottom, from, to;
 	    var array1Extract, array2Extract, widthSlope, array1ExtractInfo, array2ExtractInfo;
-	    var common;
+	    var common, commonFactor;
 
 	    setOptions(options);
 
@@ -74,7 +80,24 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    function setOptions(newOptions) {
 	        options=newOptions || {};
-	        common=options.common || common || false;
+	        if (typeof options.common === 'string') {
+	            if (options.common.toLowerCase()==='first') {
+	                common=COMMON_FIRST;
+	            } else if (options.common.toLowerCase()==='second') {
+	                common=COMMON_SECOND;
+	            } else {
+	                common=COMMON_BOTH;
+	            }
+	        } else {
+	            if (options.common) {
+	                common=COMMON_BOTH;
+	            } else {
+	                common=COMMON_NO;
+	            }
+
+	        }
+	        commonFactor=options.commonFactor || commonFactor || 4;
+
 	        if (options.widthBottom==undefined) {
 	            options.widthBottom=widthBottom || 2;
 	        }
@@ -88,7 +111,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function setPeaks1(anArray) {
 	        array1=checkArray(anArray);
 	        if (common) {
-	            var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to);
+	            var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to, common);
 	            array1Extract=extracts.data1;
 	            array1ExtractInfo=extracts.info1;
 	            array2Extract=extracts.data2;
@@ -102,7 +125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function setPeaks2(anArray) {
 	        array2=checkArray(anArray);
 	        if (common) {
-	            var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to);
+	            var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to, common);
 	            array1Extract=extracts.data1;
 	            array1ExtractInfo=extracts.info1;
 	            array2Extract=extracts.data2;
@@ -143,7 +166,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        from=newFrom;
 	        to=newTo;
 	        if (common) {
-	            var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to);
+	            var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to, common, commonFactor);
 	            array1Extract=extracts.data1;
 	            array1ExtractInfo=extracts.info1;
 	            array2Extract=extracts.data2;
@@ -395,17 +418,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	// this method will systemtatically take care of both array
-	function commonExtractAndNormalize(array1, array2, width, from, to) {
+	function commonExtractAndNormalize(array1, array2, width, from, to, common) {
 	    if (! (Array.isArray(array1)) || ! (Array.isArray(array2))) return {
 	        info: undefined,
 	        data: undefined
 	    };
 	    var extract1=extract(array1, from, to);
 	    var extract2=extract(array2, from, to);
-	    var common1=getCommonArray(extract1, extract2, width);
-	    var common2=getCommonArray(extract2, extract1, width);
-	    var info1=normalize(common1);
-	    var info2=normalize(common2);
+	    var common1, common2, info1, info2;
+	    if (common & COMMON_SECOND) {
+	        common1=getCommonArray(extract1, extract2, width);
+	        info1=normalize(common1);
+	    } else {
+	        common1=extract1;
+	        info1=normalize(common1);
+	    }
+	    if (common & COMMON_FIRST) {
+	        common2=getCommonArray(extract2, extract1, width);
+	        info2=normalize(common2);
+	    } else {
+	        common2=extract2;
+	        info2=normalize(common2);
+	    }
+
 	    return {
 	        info1: info1,
 	        info2: info2,
