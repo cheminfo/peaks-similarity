@@ -1,15 +1,12 @@
 {
   "name": "peaks-similarity",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Peaks similarity - calculate the similarity between 2 ordered array of peaks",
   "keywords": [
     "similarity",
     "mass spectroscopy",
     "spectroscopy"
   ],
-  "config": {
-    "name": "peaks-similarity"
-  },
   "author": "Luc Patiny",
   "repository": "cheminfo-js/peaks-similarity",
   "bugs": {
@@ -24,20 +21,12 @@
   },
   "scripts": {
     "test": "mocha --require should --reporter mocha-better-spec-reporter --recursive",
-    "build": "gulp build"
+    "build": "cheminfo build"
   },
   "devDependencies": {
-    "browserify": "^8.1.3",
-    "del": "^1.1.1",
-    "gulp": "^3.8.11",
-    "gulp-header": "^1.2.2",
-    "gulp-rename": "^1.2.0",
-    "gulp-sourcemaps": "^1.3.0",
-    "gulp-uglify": "^1.1.0",
-    "mocha": "latest",
-    "mocha-better-spec-reporter": "latest",
-    "should": "latest",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.0.0"
+    "cheminfo-tools": "^1.0.2",
+    "mocha": "^2.2.5",
+    "mocha-better-spec-reporter": "^2.1.1",
+    "should": "^7.0.2"
   }
 }

@@ -43,10 +43,10 @@ module.exports = function Comparator(options) {
         commonFactor=options.commonFactor || commonFactor || 4;
 
         if (options.widthBottom==undefined) {
-            options.widthBottom==widthBottom || 2;
+            options.widthBottom=widthBottom || 2;
         }
         if (options.widthTop==undefined) {
-            options.widthTop==widthTop || 1;
+            options.widthTop=widthTop || 1;
         }
         setTrapezoid(options.widthBottom, options.widthTop);
         setFromTo(options.from || from, options.to || to);
