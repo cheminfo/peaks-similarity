@@ -9,7 +9,7 @@ var comparator=new Comparator();
 comparator.setFromTo(216.605,223.605);
 comparator.setPeaks1(peaks1);
 
-console.log(comparator.getExtract1());
+//console.log(comparator.getExtract1());
 
 //comparator.setTrapezoid(4,2);
 

@@ -29,16 +29,17 @@ module.exports = function Comparator(options) {
                 common=COMMON_FIRST;
             } else if (options.common.toLowerCase()==='second') {
                 common=COMMON_SECOND;
-            } else {
-                common=COMMON_BOTH;
-            }
-        } else {
-            if (options.common) {
+            } else if (options.common.toLowerCase()==='both') {
                 common=COMMON_BOTH;
             } else {
                 common=COMMON_NO;
             }
-
+        } else {
+            if (options.common==true) {
+                common=COMMON_BOTH;
+            } else {
+                common=COMMON_NO;
+            }
         }
         commonFactor=options.commonFactor || commonFactor || 4;
 

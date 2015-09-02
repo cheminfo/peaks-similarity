@@ -31,6 +31,22 @@ options
    * first: keep first array and take the common part of the second one
    * second: keep second array and take the common part of the first one
 
+## Methods
+
+* setOptions(newOptions)
+* setPeaks1(anArray)
+* setPeaks2(anArray)
+* getExtract1()
+* getExtract2()
+* getExtractInfo1()
+* getExtractInfo2()
+* setTrapezoid(newWidthBottom, newWidthTop)
+* setFromTo(newFrom, newTo)
+* getOverlap(x1, y1, x2, y2)
+* getOverlapTrapezoid(x1, y1, x2, y2)
+* calculateDiff()
+* checkArray(points)
+* getSimilarity(newPeaks1, newPeaks2)
 
 ## License
 

@@ -14,5 +14,3 @@ describe('We check that array of points are not converted and are not normalized
         comparator.getExtract2().should.eql([[10,0],[11,0]]);
     });
 });
-
-

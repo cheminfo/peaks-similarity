@@ -10,4 +10,4 @@ var result=comparator.getSimilarity(
     [[2.5,3],[3.5,1]]
 );
 
-console.log(result);
+// console.log(result);
