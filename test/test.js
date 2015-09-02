@@ -4,14 +4,14 @@ var Comparator = require('..');
 
 var comparator=new Comparator({});
 comparator.setPeaks1([[1,2],[2,3]]);
-comparator.setPeaks2([[1,1],[2,1]]);
+comparator.setPeaks2([[1,2],[1,1]]);
 
 describe('We check that array of points are not converted and are normalized', function () {
     it('getExtract1', function () {
-        comparator.getExtract1().should.eql([[1,0.4],[2,0.6]]);
+        comparator.getExtract1().should.eql([[1,2],[0.4,0.6]]);
     });
     it('getExtract2', function () {
-        comparator.getExtract2().should.eql([[1,0.5],[2,0.5]]);
+        comparator.getExtract2().should.eql([[1,2],[0.5,0.5]]);
     });
 });
 
@@ -20,10 +20,10 @@ comparator2.setPeaks1([[1,2,3],[1,2,5]]);
 comparator2.setPeaks2([[2,3,4],[2,4,2]]);
 describe('We check that [[x1,x2,x3,...],[y1,y2,y3,...]] is converted and normalized', function () {
     it('getExtract1', function () {
-        comparator2.getExtract1().should.eql([[1,0.125],[2,0.25],[3,0.625]]);
+        comparator2.getExtract1().should.eql([[1,2,3],[0.125,0.25,0.625]]);
     });
     it('getExtract2', function () {
-        comparator2.getExtract2().should.eql([[2,0.25],[3,0.5],[4,0.25]]);
+        comparator2.getExtract2().should.eql([[2,3,4],[0.25,0.5,0.25]]);
     });
 });
 
@@ -32,10 +32,10 @@ comparator3.setPeaks1([[1,2,3],[2,2,5]]);
 comparator3.setPeaks2([[2,3,4],[2,4,2]]);
 describe('We check that from / to options works', function () {
     it('getExtract1', function () {
-        comparator3.getExtract1().should.eql([[1,0.5],[2,0.5]]);
+        comparator3.getExtract1().should.eql([[1,2],[0.5,0.5]]);
     });
     it('getExtract2', function () {
-        comparator3.getExtract2().should.eql([[2,1]]);
+        comparator3.getExtract2().should.eql([[2],[1]]);
     });
 });
 
@@ -46,10 +46,10 @@ comparator4.setPeaks2([[2,3,4],[2,4,2]]);
 comparator4.setFromTo(1,2);
 describe('We check that from / to options works and can be changed', function () {
     it('getExtract1', function () {
-        comparator4.getExtract1().should.eql([[1,0.5],[2,0.5]]);
+        comparator4.getExtract1().should.eql([[1,2],[0.5,0.5]]);
     });
     it('getExtract2', function () {
-        comparator4.getExtract2().should.eql([[2,1]]);
+        comparator4.getExtract2().should.eql([[2],[1]]);
     });
 });
 
@@ -60,10 +60,10 @@ comparator5.setFromTo(1,2);
 comparator5.setPeaks1([[1,2,3],[2,2,5]]);
 describe('We check that we can change the peaks', function () {
     it('getExtract1', function () {
-        comparator5.getExtract1().should.eql([[1,0.5],[2,0.5]]);
+        comparator5.getExtract1().should.eql([[1,2],[0.5,0.5]]);
     });
     it('getExtract2', function () {
-        comparator5.getExtract2().should.eql([[2,1]]);
+        comparator5.getExtract2().should.eql([[2],[1]]);
     });
 });
 

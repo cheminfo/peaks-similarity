@@ -25,9 +25,9 @@ var comparator7=new Comparator({trapezoid: true});
 comparator7.setTrapezoid(0.2,0.2);
 describe('We check similarity without overlap trapezoid', function () {
     it('getSimilarity', function () {
-        comparator7.getSimilarity([[1,1],[2,1]],[[1,1],[2,1]]).similarity.should.equal(1);
-        comparator7.getSimilarity([[1,1],[2,1]],[[1,1],[3,1]]).similarity.should.equal(0.5);
-        comparator7.getSimilarity([[1,1],[2,1]],[[3,1],[4,1]]).similarity.should.equal(0);
+        comparator7.getSimilarity([[1,2],[1,1]],[[1,2],[1,1]]).similarity.should.equal(1);
+        comparator7.getSimilarity([[1,2],[1,1]],[[1,3],[1,1]]).similarity.should.equal(0.5);
+        comparator7.getSimilarity([[1,2],[1,1]],[[3,4],[1,1]]).similarity.should.equal(0);
     });
 });
 
@@ -35,9 +35,9 @@ var comparator8=new Comparator({trapezoid: true});
 comparator8.setTrapezoid(2,2);
 describe('We check similarity with overlap trapezoid', function () {
     it('getSimilarity', function () {
-        comparator8.getSimilarity([[1,1],[2,1]],[[1,1]]).similarity.should.equal(0.75);
-        comparator8.getSimilarity([[1,1],[2,1]],[[1,1],[3,1]]).similarity.should.equal(0.75);
-        comparator8.getSimilarity([[1,1],[2,1]],[[3,1],[4,1]]).similarity.should.equal(0.25);
+        comparator8.getSimilarity([[1,2],[1,1]],[[1,1]]).similarity.should.equal(0.75);
+        comparator8.getSimilarity([[1,2],[1,1]],[[1,3],[1,1]]).similarity.should.equal(0.75);
+        comparator8.getSimilarity([[1,2],[1,1]],[[3,4],[1,1]]).similarity.should.equal(0.25);
     });
 });
 

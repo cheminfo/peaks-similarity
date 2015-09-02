@@ -210,20 +210,16 @@ module.exports = function Comparator(options) {
     function calculateDiff() {
         // we need to take 2 pointers
         // and travel progressively between them ...
-        var newSecond=[[],[]];
-        var j=0;
-        for (var i=0; i<array2Extract[0].length; i++) {
-            newSecond[0][j]=array2Extract[0][i];
-            newSecond[1][j]=array2Extract[1][i];
-            j++;
-        }
-        var newFirst=[[],[]];
-        var j=0;
-        for (var i=0; i<array1Extract[0].length; i++) {
-            newFirst[0][j]=array1Extract[0][i];
-            newFirst[1][j]=array1Extract[1][i];
-            j++;
-        }
+        var newFirst=[
+            [].concat(array1Extract[0]),
+            [].concat(array1Extract[1])
+        ];
+        var newSecond=[
+            [].concat(array2Extract[0]),
+            [].concat(array2Extract[1])
+        ];
+        var array2ExtractLength=array2Extract[0] ? array2Extract[0].length : 0;
+
 
         var pos1=0;
         var pos2=0;
@@ -239,14 +235,14 @@ module.exports = function Comparator(options) {
                 }
                 newFirst[1][pos1]-=overlap;
                 newSecond[1][pos2]-=overlap;
-                if (pos2<(array2Extract.length-1)) {
+                if (pos2<(array2ExtractLength-1)) {
                     pos2++;
                 } else {
                     pos1++;
                     pos2=previous2;
                 }
             } else {
-                if (diff>0 && pos2<(array2Extract.length-1)) {
+                if (diff>0 && pos2<(array2ExtractLength-1)) {
                     pos2++;
                     previous2=pos2;
                 } else {
@@ -266,7 +262,7 @@ module.exports = function Comparator(options) {
      */
     function checkArray(points) {
         // if it is already a 2D array of points, we just return them
-        if (Array.isArray(points) && Array.isArray(points[0]) && points[0].length!==2) return points;
+        if (Array.isArray(points) && Array.isArray(points[0]) && points.length===2) return points;
         var x=new Array(points.length);
         var y=new Array(points.length);
         for (var i=0; i<points.length; i++) {
