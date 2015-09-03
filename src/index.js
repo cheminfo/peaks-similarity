@@ -1,9 +1,9 @@
 'use strict';
 
-const COMMON_NO=0;
-const COMMON_FIRST=1;
-const COMMON_SECOND=2;
-const COMMON_BOTH=3; // should be a binary operation !
+var COMMON_NO=0;
+var COMMON_FIRST=1;
+var COMMON_SECOND=2;
+var COMMON_BOTH=3; // should be a binary operation !
 
 var Stat = require('ml-stat').array;
 
