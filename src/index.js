@@ -285,6 +285,20 @@ module.exports = function Comparator(options) {
         return result;
     }
 
+    /*
+        This works mainly when you have a array1 that is fixed
+        newPeaks2 have to be normalized ! (sum to 1)
+     */
+    function fastSimilarity(newPeaks2, from, to, common) {
+        array1Extract=extract(array1, from, to);
+        array2Extract=newPeaks2;
+        if (common) array1Extract= getCommonArray(array1Extract, array2Extract, widthBottom)
+        normalize(array1Extract);
+        var diff=calculateDiff();
+        return calculateOverlapFromDiff(diff);
+    }
+
+
     this.setPeaks1 = setPeaks1;
     this.setPeaks2 = setPeaks2;
     this.getExtract1 = getExtract1;
@@ -296,6 +310,9 @@ module.exports = function Comparator(options) {
     this.setTrapezoid = setTrapezoid;
     this.getSimilarity = getSimilarity;
     this.getCommonArray = getCommonArray;
+
+    this.fastSimilarity = fastSimilarity;
+
 };
 
 

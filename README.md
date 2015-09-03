@@ -47,6 +47,10 @@ options
 * calculateDiff()
 * checkArray(points)
 * getSimilarity(newPeaks1, newPeaks2)
+* fastSimilarity(newPeaks2, from, to, common)
+  * newPeaks2 has to be normalized (sum to 1)
+  * common should be either true / false and will
+    take the peaks1 that are at a distance less that widthBottom
 
 ## License
 
