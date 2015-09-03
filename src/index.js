@@ -1,9 +1,11 @@
 'use strict';
 
-const COMMON_NO=0;
-const COMMON_FIRST=1;
-const COMMON_SECOND=2;
-const COMMON_BOTH=3; // should be a binary operation !
+var COMMON_NO=0;
+var COMMON_FIRST=1;
+var COMMON_SECOND=2;
+var COMMON_BOTH=3; // should be a binary operation !
+
+var Stat = require('ml-stat').array;
 
 
 module.exports = function Comparator(options) {
@@ -55,6 +57,7 @@ module.exports = function Comparator(options) {
 
     function setPeaks1(anArray) {
         array1=checkArray(anArray);
+
         if (common) {
             var extracts=commonExtractAndNormalize(array1, array2, widthBottom, from, to, common);
             array1Extract=extracts.data1;
@@ -146,6 +149,7 @@ module.exports = function Comparator(options) {
 
     // This is the old trapezoid similarity
     function getOverlapTrapezoid(x1, y1, x2, y2) {
+
         var factor=2/(widthTop+widthBottom); // correction for surface=1
         if (y1===0 || y2===0) return 0;
         if (x1===x2) { // they have the same position
@@ -207,37 +211,38 @@ module.exports = function Comparator(options) {
     function calculateDiff() {
         // we need to take 2 pointers
         // and travel progressively between them ...
-        var newSecond=[];
-        for (var i=0; i<array2Extract.length; i++) {
-            newSecond.push([array2Extract[i][0],array2Extract[i][1]]);
-        }
-        var newFirst=[];
-        for (var i=0; i<array1Extract.length; i++) {
-            newFirst.push([array1Extract[i][0],array1Extract[i][1]]);
-        }
+        var newFirst=[
+            [].concat(array1Extract[0]),
+            [].concat(array1Extract[1])
+        ];
+        var newSecond=[
+            [].concat(array2Extract[0]),
+            [].concat(array2Extract[1])
+        ];
+        var array1Length=array1Extract[0] ? array1Extract[0].length : 0;
+        var array2Length=array2Extract[0] ? array2Extract[0].length : 0;
 
         var pos1=0;
         var pos2=0;
         var previous2=0;
-        while (pos1<newFirst.length) {
-            var diff=newFirst[pos1][0]-array2Extract[pos2][0];
+        while (pos1<array1Length) {
+            var diff=newFirst[0][pos1]-array2Extract[0][pos2];
             if (Math.abs(diff)<widthBottom) { // there is some overlap
                 if (options.trapezoid) {
-                    var overlap=getOverlapTrapezoid(newFirst[pos1][0], newFirst[pos1][1], newSecond[pos2][0], newSecond[pos2][1], widthTop, widthBottom);
-
+                    var overlap=getOverlapTrapezoid(newFirst[0][pos1], newFirst[1][pos1], newSecond[0][pos2], newSecond[1][pos2], widthTop, widthBottom);
                 } else {
-                    var overlap=getOverlap(newFirst[pos1][0], newFirst[pos1][1], newSecond[pos2][0], newSecond[pos2][1], widthTop, widthBottom);
+                    var overlap=getOverlap(newFirst[0][pos1], newFirst[1][pos1], newSecond[0][pos2], newSecond[1][pos2], widthTop, widthBottom);
                 }
-                newFirst[pos1][1]-=overlap;
-                newSecond[pos2][1]-=overlap;
-                if (pos2<(array2Extract.length-1)) {
+                newFirst[1][pos1]-=overlap;
+                newSecond[1][pos2]-=overlap;
+                if (pos2<(array2Length-1)) {
                     pos2++;
                 } else {
                     pos1++;
                     pos2=previous2;
                 }
             } else {
-                if (diff>0 && pos2<(array2Extract.length-1)) {
+                if (diff>0 && pos2<(array2Length-1)) {
                     pos2++;
                     previous2=pos2;
                 } else {
@@ -257,14 +262,14 @@ module.exports = function Comparator(options) {
      */
     function checkArray(points) {
         // if it is already a 2D array of points, we just return them
-        if (Array.isArray(points) && Array.isArray(points[0]) && points[0].length===2) return points;
-        var xs=points[0];
-        var ys=points[1];
-        var array=[];
-        for (var i=0; i<xs.length; i++) {
-            array.push([xs[i],ys[i]]);
+        if (Array.isArray(points) && Array.isArray(points[0]) && points.length===2) return points;
+        var x=new Array(points.length);
+        var y=new Array(points.length);
+        for (var i=0; i<points.length; i++) {
+            x[i]=points[i][0];
+            y[i]=points[i][1];
         }
-        return array;
+        return [x,y];
     }
 
     function getSimilarity(newPeaks1, newPeaks2) {
@@ -296,17 +301,21 @@ module.exports = function Comparator(options) {
 
 // returns an new array based on array1 where there is a peak of array2 at a distance under width/2
 function getCommonArray(array1, array2, width) {
-    var newArray=[];
+    var newArray=[[],[]];
     var pos2=0;
     width/=2;
     var j=0;
+    var array1Length=array1[0] ? array1[0].length : 0;
+    var array2Length=array2[0] ? array2[0].length : 0;
 
-    for (var i=0; i<array1.length; i++) {
-        while (pos2<array2.length && (array1[i][0]>(array2[pos2][0]+width))) {
+    for (var i=0; i<array1Length; i++) {
+        while (pos2<array2Length && (array1[0][i]>(array2[0][pos2]+width))) {
             pos2++;
         }
-        if ((pos2<array2.length) && (array1[i][0]>array2[pos2][0]-width)) {
-            newArray[j++]=array1[i];
+        if ((pos2<array2Length) && (array1[0][i]>array2[0][pos2]-width)) {
+            newArray[0][j]=array1[0][i];
+            newArray[1][j]=array1[1][i];
+            j++;
         }
     }
     return newArray;
@@ -342,17 +351,13 @@ function getIntersection(segment1, segment2) {
 }
 
 function normalize(array) {
-    var sum=0;
-    var min=Number.MAX_VALUE;
-    var max=Number.MIN_VALUE;
-    for (var i=0; i<array.length; i++) {
-        sum+=array[i][1];
-        if (array[i][1]<min) min=array[i][1];
-        if (array[i][1]>max) max=array[i][1];
-    }
+    var min=Stat.min(array[1]);
+    var max=Stat.max(array[1]);
+    var sum=Stat.sum(array[1]);
+    var length=array[1] ? array[0].length : 0;
     if (sum!=0) {
-        for (var i=0; i<array.length; i++) {
-            array[i][1]/=sum;
+        for (var i=0; i<length; i++) {
+            array[1][i]/=sum;
         }
     }
     return {
@@ -395,11 +400,14 @@ function commonExtractAndNormalize(array1, array2, width, from, to, common) {
 }
 
 function extract(array, from, to) {
-    var newArray=[];
+    var newArray=[[],[]];
     var j=0;
-    for (var i=0; i<array.length; i++) {
-        if ( (! from || array[i][0]>=from)  && (! to || array[i][0]<=to)) {
-            newArray[j++] = [array[i][0], array[i][1]];
+    var length=array[0] ? array[0].length : 0;
+    for (var i=0; i<length; i++) {
+        if ( (! from || array[0][i]>=from)  && (! to || array[0][i]<=to)) {
+            newArray[0][j] = array[0][i];
+            newArray[1][j] = array[1][i];
+            j++
         }
     }
     return newArray;
@@ -420,8 +428,8 @@ function extractAndNormalize(array, from, to) {
 
 function calculateOverlapFromDiff(diffs) {
     var sumPos=0;
-    for (var i=0; i<diffs.length; i++) {
-        sumPos+=Math.abs(diffs[i][1]);
+    for (var i=0; i<diffs[1].length; i++) {
+        sumPos+=Math.abs(diffs[1][i]);
     }
     return 1-sumPos;
 }
