@@ -2,10 +2,11 @@
 
 var Comparator = require('..');
 
-var comparator=new Comparator({});
 
 
 describe('We check the calculation of common array', function () {
+    var comparator=new Comparator({});
+
     it('Test 1', function () {
         var result=comparator.getCommonArray(
             [[2,3],[2,2]],

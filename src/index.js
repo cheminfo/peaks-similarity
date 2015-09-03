@@ -149,6 +149,7 @@ module.exports = function Comparator(options) {
 
     // This is the old trapezoid similarity
     function getOverlapTrapezoid(x1, y1, x2, y2) {
+
         var factor=2/(widthTop+widthBottom); // correction for surface=1
         if (y1===0 || y2===0) return 0;
         if (x1===x2) { // they have the same position
@@ -218,31 +219,30 @@ module.exports = function Comparator(options) {
             [].concat(array2Extract[0]),
             [].concat(array2Extract[1])
         ];
-        var array2ExtractLength=array2Extract[0] ? array2Extract[0].length : 0;
-
+        var array1Length=array1Extract[0] ? array1Extract[0].length : 0;
+        var array2Length=array2Extract[0] ? array2Extract[0].length : 0;
 
         var pos1=0;
         var pos2=0;
         var previous2=0;
-        while (pos1<newFirst.length) {
+        while (pos1<array1Length) {
             var diff=newFirst[0][pos1]-array2Extract[0][pos2];
             if (Math.abs(diff)<widthBottom) { // there is some overlap
                 if (options.trapezoid) {
                     var overlap=getOverlapTrapezoid(newFirst[0][pos1], newFirst[1][pos1], newSecond[0][pos2], newSecond[1][pos2], widthTop, widthBottom);
-
                 } else {
                     var overlap=getOverlap(newFirst[0][pos1], newFirst[1][pos1], newSecond[0][pos2], newSecond[1][pos2], widthTop, widthBottom);
                 }
                 newFirst[1][pos1]-=overlap;
                 newSecond[1][pos2]-=overlap;
-                if (pos2<(array2ExtractLength-1)) {
+                if (pos2<(array2Length-1)) {
                     pos2++;
                 } else {
                     pos1++;
                     pos2=previous2;
                 }
             } else {
-                if (diff>0 && pos2<(array2ExtractLength-1)) {
+                if (diff>0 && pos2<(array2Length-1)) {
                     pos2++;
                     previous2=pos2;
                 } else {
