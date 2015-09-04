@@ -289,10 +289,10 @@ module.exports = function Comparator(options) {
         This works mainly when you have a array1 that is fixed
         newPeaks2 have to be normalized ! (sum to 1)
      */
-    function fastSimilarity(newPeaks2, from, to, common) {
+    function fastSimilarity(newPeaks2, from, to) {
         array1Extract=extract(array1, from, to);
         array2Extract=newPeaks2;
-        if (common) array1Extract= getCommonArray(array1Extract, array2Extract, widthBottom)
+        if (common&COMMON_SECOND) array1Extract= getCommonArray(array1Extract, array2Extract, widthBottom)
         normalize(array1Extract);
         var diff=calculateDiff();
         return calculateOverlapFromDiff(diff);
@@ -371,7 +371,7 @@ function normalize(array) {
     var min=Stat.min(array[1]);
     var max=Stat.max(array[1]);
     var sum=Stat.sum(array[1]);
-    var length=array[1] ? array[0].length : 0;
+    var length=array[1] ? array[1].length : 0;
     if (sum!=0) {
         for (var i=0; i<length; i++) {
             array[1][i]/=sum;
