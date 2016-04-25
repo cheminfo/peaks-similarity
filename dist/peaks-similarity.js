@@ -500,6 +500,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function calculateOverlapFromDiff(diffs) {
+	    if (diffs[1].length===0) return 0;
 	    var sumPos=0;
 	    for (var i=0; i<diffs[1].length; i++) {
 	        sumPos+=Math.abs(diffs[1][i]);
