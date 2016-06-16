@@ -21,7 +21,7 @@
   },
   "scripts": {
     "test": "mocha --require should --reporter mocha-better-spec-reporter --recursive",
-    "build": "cheminfo build"
+    "build": "cheminfo build --no-uglify"
   },
   "devDependencies": {
     "cheminfo-tools": "^1.0.2",
@@ -30,6 +30,6 @@
     "should": "^7.0.2"
   },
   "dependencies": {
-    "ml-stat": "^1.1.0"
+    "ml-stat": "^1.2.0"
   }
 }
