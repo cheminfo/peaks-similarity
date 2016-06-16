@@ -282,6 +282,8 @@ module.exports = function Comparator(options) {
         result.extractInfo1=getExtractInfo1();
         result.extractInfo2=getExtractInfo2();
         result.similarity=calculateOverlapFromDiff(result.diff);
+        result.widthBottom=widthBottom;
+        result.widthTop=widthTop;
         return result;
     }
 
