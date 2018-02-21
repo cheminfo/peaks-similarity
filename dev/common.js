@@ -22,25 +22,25 @@ var array1=[[0,2],[0.95,2],[1,2],[1.05,2],[2,2]];
 var array2=[[1,2]];
 
 
-var bottomWidth=0.2;
+var widthBottom=0.2;
 
-var newArray=getCommonArray(array1, array2, bottomWidth);
+var newArray=getCommonArray(array1, array2, widthBottom);
 
 console.log(newArray);
 
 
-function getCommonArray(array1, array2, bottomWidth) {
+function getCommonArray(array1, array2, widthBottom) {
     var newArray1=[];
     var newArray2=[];
     var pos2=0;
 
     for (var i=0; i<array1.length; i++) {
-        while (pos2<array2.length && (array1[i][0]>(array2[pos2][0]+bottomWidth/2))) {
-            console.log("---",array1[i][0],(array2[pos2][0]-bottomWidth/2));
+        while (pos2<array2.length && (array1[i][0]>(array2[pos2][0]+widthBottom/2))) {
+            console.log("---",array1[i][0],(array2[pos2][0]-widthBottom/2));
             pos2++;
         }
         console.log(i, pos2, array1[i]);
-        if ((pos2<array2.length) && (array1[i][0]>array2[pos2][0]-bottomWidth/2)) {
+        if ((pos2<array2.length) && (array1[i][0]>array2[pos2][0]-widthBottom/2)) {
             console.log("add");
             newArray1.push(array1[i]);
         }

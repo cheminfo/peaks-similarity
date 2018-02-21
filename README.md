@@ -16,17 +16,17 @@ var peaks1=[[1,1],[2,2]];
 var peaks2=[[1,2],[2,1]];
 
 var Comparator = require('..');
-var comparator=new Comparator({bottomWidth: 4, topWidth: 2});
+var comparator=new Comparator({widthBotom: 4, widthTop: 2});
 var result=comparator.getSimilarity(peaks1, peaks2);
 
 console.log(result);
 ```
 
 options
- * bottomWidth : bottom width of the trapezoid (default: 2)
- * topWidth : top width of the trapezoid (default: 1)
+ * widthBottom : bottom width of the trapezoid (default: 2)
+ * widthTop : top width of the trapezoid (default: 1)
  * trapezoid : Should we use overlapping of trapezoids surface (default: false). If trapezoid is false it is based only on peaks and not surface.
- * common: Only take the common part of the array based on the bottomWidth of the trapezoid (default: false)
+ * common: Only take the common part of the array based on the widthBottom of the trapezoid (default: false)
    * true: take the common part between the 2 array
    * first: keep first array and take the common part of the second one
    * second: keep second array and take the common part of the first one
