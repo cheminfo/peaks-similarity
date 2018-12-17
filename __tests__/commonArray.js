@@ -4,7 +4,7 @@ var Comparator = require('..');
 
 describe('We check the calculation of common array', function () {
   var comparator;
-  beforeEach(() => comparator = new Comparator());
+  beforeEach(() => (comparator = new Comparator()));
 
   it('Test 1', function () {
     var result = comparator.getCommonArray(
@@ -51,4 +51,3 @@ describe('We check the calculation of common array', function () {
     expect(result).toStrictEqual([[0.95, 1, 1.05, 2], [2, 2, 2, 2]]);
   });
 });
-

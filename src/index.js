@@ -105,7 +105,7 @@ module.exports = function Comparator(options) {
     widthTop = newWidthTop;
     widthBottom = newWidthBottom;
     widthSlope = (widthBottom - widthTop) / 2;
-    if (widthBottom < widthTop) throw 'widthBottom has to be larger than widthTop';
+    if (widthBottom < widthTop) throw new Error('widthBottom has to be larger than widthTop');
   }
 
   function setFromTo(newFrom, newTo) {

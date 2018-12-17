@@ -1,6 +1,5 @@
 'use strict';
 
-require('should');
 var Comparator = require('..');
 
 describe('We check common array similarity with common first', function () {
@@ -13,13 +12,16 @@ describe('We check common array similarity with common first', function () {
   comparator.setPeaks2([[1, 3], [1, 1]]);
   var result = comparator.getSimilarity();
   it('getExtract1', function () {
-    result.extract1.should.eql([[1, 2, 3, 4], [0.25, 0.25, 0.25, 0.25]]);
+    expect(result.extract1).toStrictEqual([
+      [1, 2, 3, 4],
+      [0.25, 0.25, 0.25, 0.25]
+    ]);
   });
   it('getExtract2', function () {
-    result.extract2.should.eql([[1, 3], [0.5, 0.5]]);
+    expect(result.extract2).toStrictEqual([[1, 3], [0.5, 0.5]]);
   });
   it('similarity', function () {
-    result.similarity.should.eql(0.5);
+    expect(result.similarity).toBe(0.5);
   });
 });
 
@@ -34,12 +36,12 @@ describe('We check common array similarity with common second', function () {
 
   var result = comparator.getSimilarity();
   it('getExtract1', function () {
-    result.extract1.should.eql([[1, 3], [0.5, 0.5]]);
+    expect(result.extract1).toStrictEqual([[1, 3], [0.5, 0.5]]);
   });
   it('getExtract2', function () {
-    result.extract2.should.eql([[1, 3], [0.5, 0.5]]);
+    expect(result.extract2).toStrictEqual([[1, 3], [0.5, 0.5]]);
   });
   it('similarity', function () {
-    result.similarity.should.eql(1);
+    expect(result.similarity).toBe(1);
   });
 });
