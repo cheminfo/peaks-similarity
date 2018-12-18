@@ -1,6 +1,6 @@
 {
   "name": "peaks-similarity",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Peaks similarity - calculate the similarity between 2 ordered array of peaks",
   "keywords": [
     "similarity",
