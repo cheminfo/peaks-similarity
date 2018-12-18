@@ -27,7 +27,10 @@ describe('We check that [[x1,x2,x3,...],[y1,y2,y3,...]] is converted and normali
     ]);
   });
   it('getExtract2', function () {
-    expect(comparator2.getExtract2()).toStrictEqual([[2, 3, 4], [0.25, 0.5, 0.25]]);
+    expect(comparator2.getExtract2()).toStrictEqual([
+      [2, 3, 4],
+      [0.25, 0.5, 0.25]
+    ]);
   });
 });
 

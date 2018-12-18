@@ -7,8 +7,17 @@ var COMMON_BOTH = 3; // should be a binary operation !
 
 var Stat = require('ml-stat').array;
 
+/**
+ * Create a comparator class
+ * {object} [options={}]
+ * {string} [options.common=''] should we take only common peaks 'first', 'second', 'both', ''
+ * {number} [options.widthBottom=2] bottom trapezoid width for similarity evaluation
+ * {number} [options.widthTop=1] top trapezoid width for similarity evaluation
+ * {number} [options.from] from region used for similarity calculation
+ * {number} [options.to] to region used for similarity calculation
+ */
 
-module.exports = function Comparator(options) {
+module.exports = function Comparator(options = {}) {
   var widthTop, widthBottom, from, to;
   var array1Extract, array2Extract, widthSlope, array1ExtractInfo, array2ExtractInfo;
   var common, commonFactor;
@@ -297,7 +306,7 @@ module.exports = function Comparator(options) {
     var diff = calculateDiff();
     return calculateOverlapFromDiff(diff);
   }
-
+ 
 
   this.setPeaks1 = setPeaks1;
   this.setPeaks2 = setPeaks2;
@@ -383,7 +392,7 @@ function normalize(array) {
   };
 }
 
-// this method will systemtatically take care of both array
+// this method will systematically take care of both array
 function commonExtractAndNormalize(array1, array2, width, from, to, common) {
   if (!(Array.isArray(array1)) || !(Array.isArray(array2))) {
     return {
