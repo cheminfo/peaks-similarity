@@ -1,3 +1,4 @@
-extends: cheminfo
-env:
-  jest: true
+extends:
+  - cheminfo-typescript
+parserOptions:
+  sourceType: module

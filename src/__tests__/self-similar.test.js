@@ -1,6 +1,4 @@
-'use strict';
-
-const Comparator = require('..');
+import Comparator from '../index.js';
 
 test('similarity with itself should be 1', () => {
   const comparator = new Comparator();
@@ -29,7 +27,7 @@ test('similarity with itself should be 1', () => {
     [83.7495, 48.1136],
     [85.3857, 93.9969],
     [88.9137, 14.9177],
-    [88.9623, 63.885]
+    [88.9623, 63.885],
   ];
 
   const result = comparator.getSimilarity(data, data);
