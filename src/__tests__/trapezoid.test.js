@@ -1,4 +1,6 @@
-import Comparator from '../index.js';
+import { describe, it, expect } from 'vitest';
+
+import Comparator from '..';
 
 describe('We check similarity of identical spectra trapezoid', () => {
   const comparator6 = new Comparator({ trapezoid: true });

@@ -1,4 +1,6 @@
-import Comparator from '../index.js';
+import { describe, it, expect } from 'vitest';
+
+import Comparator from '..';
 
 describe('We check that array of points are not converted and are not normalized', () => {
   const comparator = new Comparator({});

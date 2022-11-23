@@ -1,4 +1,6 @@
-import Comparator from '../index.js';
+import { test, expect } from 'vitest';
+
+import Comparator from '..';
 
 test('similarity with itself should be 1', () => {
   const comparator = new Comparator();

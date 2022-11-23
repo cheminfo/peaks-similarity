@@ -74,7 +74,7 @@ function getCommonArray(array1, array2, widthBottom) {
       pos2 < array2.length &&
       array1[i][0] > array2[pos2][0] + widthBottom / 2
     ) {
-      console.log("---", array1[i][0], array2[pos2][0] - widthBottom / 2);
+      console.log('---', array1[i][0], array2[pos2][0] - widthBottom / 2);
       pos2++;
     }
     console.log(i, pos2, array1[i]);
@@ -82,7 +82,7 @@ function getCommonArray(array1, array2, widthBottom) {
       pos2 < array2.length &&
       array1[i][0] > array2[pos2][0] - widthBottom / 2
     ) {
-      console.log("add");
+      console.log('add');
       newArray1.push(array1[i]);
     }
   }

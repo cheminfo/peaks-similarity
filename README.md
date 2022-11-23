@@ -21,8 +21,8 @@ const peaks2 = [
   [2, 1],
 ];
 
-import Comparator from "../index.js";
-const comparator = new Comparator({ widthBotom: 4, widthTop: 2 });
+import Comparator from 'peaks-similarity';
+const comparator = new Comparator({ widthBottom: 4, widthTop: 2 });
 const result = comparator.getSimilarity(peaks1, peaks2);
 
 console.log(result);

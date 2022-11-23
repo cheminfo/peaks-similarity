@@ -1,4 +1,6 @@
-import Comparator from '../index.js';
+import { describe, it, expect } from 'vitest';
+
+import Comparator from '..';
 
 describe('We check common array similarity 1', () => {
   const comparator = new Comparator({
