@@ -7,3 +7,5 @@ node_modules
 coverage
 lib
 lib-esm
+
+dist
