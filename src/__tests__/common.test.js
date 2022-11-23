@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import Comparator from '..';
+import { Comparator } from '..';
 
 describe('We check common array similarity with common first', () => {
   const comparator = new Comparator({

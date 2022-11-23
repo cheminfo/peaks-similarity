@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest';
 
-import Comparator from '..';
+import { Comparator } from '..';
 
 test('We check to test fast similarity common second', () => {
   const comparator = new Comparator({

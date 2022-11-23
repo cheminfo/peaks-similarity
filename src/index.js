@@ -1,7 +1,5 @@
-// should be a binary operation !
-
 import { calculateOverlapFromDiff } from './calculateOverlapFromDiff';
-import { checkArray } from './checkArray';
+import { checkPeaks } from './checkPeaks';
 import { commonExtractAndNormalize } from './commonExtractAndNormalize';
 import { extract } from './extract';
 import { extractAndNormalize } from './extractAndNormalize';
@@ -9,10 +7,15 @@ import { getCommonArray } from './getCommonArray.js';
 import { getIntersection } from './getIntersection';
 import { normalize } from './normalize';
 
-const COMMON_NO = 0;
+export const COMMON_NO = 0;
 export const COMMON_FIRST = 1;
 export const COMMON_SECOND = 2;
-const COMMON_BOTH = 3;
+export const COMMON_BOTH = 3;
+
+/**
+ * A number, or a string containing a number.
+ * @typedef {([number[],number[]]|[number,number][])} Peaks
+ */
 
 /**
  * Create a comparator class
@@ -23,7 +26,6 @@ const COMMON_BOTH = 3;
  * {number} [options.from] from region used for similarity calculation
  * {number} [options.to] to region used for similarity calculation
  */
-
 export class Comparator {
   constructor(options = {}) {
     this.array1 = [];
@@ -66,8 +68,12 @@ export class Comparator {
     this.setFromTo(from, to);
   }
 
-  setPeaks1(anArray) {
-    this.array1 = checkArray(anArray);
+  /**
+   *
+   * @param {Peaks} peaks
+   */
+  setPeaks1(peaks) {
+    this.array1 = checkPeaks(peaks);
 
     if (this.common) {
       const extracts = commonExtractAndNormalize(
@@ -89,8 +95,12 @@ export class Comparator {
     }
   }
 
-  setPeaks2(anArray) {
-    this.array2 = checkArray(anArray);
+  /**
+   *
+   * @param {Peaks} peaks
+   */
+  setPeaks2(peaks) {
+    this.array2 = checkPeaks(peaks);
     if (this.common) {
       const extracts = commonExtractAndNormalize(
         this.array1,
@@ -127,6 +137,11 @@ export class Comparator {
     return this.array2ExtractInfo;
   }
 
+  /**
+   * Set the new bottom and top width of the trapezoid
+   * @param {number} newWidthBottom
+   * @param {number} newWidthTop
+   */
   setTrapezoid(newWidthBottom, newWidthTop) {
     this.widthTop = newWidthTop;
     this.widthBottom = newWidthBottom;
@@ -136,6 +151,12 @@ export class Comparator {
     }
   }
 
+  /**
+   * Set the from / to for comparison
+   * @param {number} newFrom - set the new from value
+   * @param {number} newTo - set the new to value
+   * @returns
+   */
   setFromTo(newFrom, newTo) {
     if (newFrom === this.from && newTo === this.to) return;
     this.from = newFrom;
@@ -164,6 +185,14 @@ export class Comparator {
     }
   }
 
+  /**
+   *
+   * @param {number} x1
+   * @param {number} y1
+   * @param {number} x2
+   * @param {number} y2
+   * @returns
+   */
   getOverlap(x1, y1, x2, y2) {
     if (y1 === 0 || y2 === 0) return 0;
 
@@ -181,8 +210,19 @@ export class Comparator {
     return Math.min(y1, y2, maxValue);
   }
 
-  // This is the old trapezoid similarity
+  /**
+   * This is the old trapezoid similarity
+   * @param {number} x1
+   * @param {number} y1
+   * @param {number} x2
+   * @param {number} y2
+   * @param {number} widthTop
+   * @param {number} widthBottom
+   * @returns
+   */
   getOverlapTrapezoid(x1, y1, x2, y2, widthTop, widthBottom) {
+    // eslint-disable-next-line no-console
+    console.error('getOverlapTrapezoid should not be used anymore');
     const factor = 2 / (widthTop + widthBottom); // correction for surface=1
     if (y1 === 0 || y2 === 0) return 0;
     if (x1 === x2) {
@@ -264,17 +304,20 @@ export class Comparator {
     return NaN;
   }
 
-  // this method calculates the total diff. The sum of positive value will yield to overlap
+  /**
+   * This method calculates the total diff. The sum of positive value will yield to overlap
+   * @returns
+   */
   calculateDiff() {
     // we need to take 2 pointers
     // and travel progressively between them ...
     const newFirst = [
-      [].concat(this.array1Extract[0]),
-      [].concat(this.array1Extract[1]),
+      this.array1Extract[0].slice(),
+      this.array1Extract[1].slice(),
     ];
     const newSecond = [
-      [].concat(this.array2Extract[0]),
-      [].concat(this.array2Extract[1]),
+      this.array2Extract[0].slice(),
+      this.array2Extract[1].slice(),
     ];
     const array1Length = this.array1Extract[0]
       ? this.array1Extract[0].length
@@ -330,6 +373,12 @@ export class Comparator {
     return newSecond;
   }
 
+  /**
+   * Set the new peaks and return info
+   * @param {Peaks} newPeaks1
+   * @param {Peaks} newPeaks2
+   * @returns
+   */
   getSimilarity(newPeaks1, newPeaks2) {
     if (newPeaks1) this.setPeaks1(newPeaks1);
     if (newPeaks2) this.setPeaks2(newPeaks2);
@@ -346,10 +395,14 @@ export class Comparator {
     };
   }
 
-  /*
-    This works mainly when you have a array1 that is fixed
-    newPeaks2 have to be normalized ! (sum to 1)
-  */
+  /**
+   * This works mainly when you have a array1 that is fixed
+   * newPeaks2 have to be normalized ! (sum to 1)
+   * @param {Peaks} newPeaks2
+   * @param {number} from
+   * @param {number} to
+   * @returns
+   */
   fastSimilarity(newPeaks2, from, to) {
     this.array1Extract = extract(this.array1, from, to);
     this.array2Extract = newPeaks2;

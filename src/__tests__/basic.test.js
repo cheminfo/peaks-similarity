@@ -1,6 +1,6 @@
 import { it, expect, test } from 'vitest';
 
-import Comparator from '..';
+import { Comparator } from '..';
 
 test('We check that array of points are not converted and are normalized', () => {
   const comparator = new Comparator();
@@ -101,7 +101,7 @@ test('We check that we can change the peaks', () => {
   expect(comparator.getExtract2()).toStrictEqual([[2], [1]]);
 });
 
-test.only('We check similarity of identical spectra', () => {
+test('We check similarity of identical spectra', () => {
   const comparator = new Comparator();
   comparator.setTrapezoid(0.2, 0.2);
   comparator.setPeaks1([
