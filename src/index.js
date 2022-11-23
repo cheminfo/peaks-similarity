@@ -24,7 +24,7 @@ const COMMON_BOTH = 3;
  * {number} [options.to] to region used for similarity calculation
  */
 
-export default class Comparator {
+export class Comparator {
   constructor(options = {}) {
     this.array1 = [];
     this.array2 = [];
