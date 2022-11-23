@@ -10,6 +10,9 @@ export function checkPeaks(peaks) {
   if (Array.isArray(peaks) && Array.isArray(peaks[0]) && peaks.length === 2) {
     return peaks;
   }
+  if (Array.isArray(peaks.x) && Array.isArray(peaks.y)) {
+    return [peaks.x, peaks.y];
+  }
   const x = new Array(peaks.length);
   const y = new Array(peaks.length);
   for (let i = 0; i < peaks.length; i++) {

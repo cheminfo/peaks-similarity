@@ -14,7 +14,7 @@ export const COMMON_BOTH = 3;
 
 /**
  * A number, or a string containing a number.
- * @typedef {([number[],number[]]|[number,number][])} Peaks
+ * @typedef {([number[],number[]]|[number,number][]|{x:number[],y:number[]})} Peaks
  */
 
 /**
