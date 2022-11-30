@@ -7,7 +7,7 @@
     "mass spectroscopy",
     "spectroscopy"
   ],
-  "main": "./src/index.js",
+  "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "types": "lib/index.d.ts",
   "files": [
