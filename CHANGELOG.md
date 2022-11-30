@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/cheminfo/peaks-similarity/compare/v3.1.0...v3.1.1) (2022-11-30)
+
+
+### Bug Fixes
+
+* correctly define package entry point ([db0307c](https://github.com/cheminfo/peaks-similarity/commit/db0307c7df80541201103176ce2c9fd55c8b21a2))
+
 ## [3.1.0](https://github.com/cheminfo/peaks-similarity/compare/v3.0.0...v3.1.0) (2022-11-23)
 
 
