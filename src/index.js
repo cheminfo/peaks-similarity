@@ -17,16 +17,16 @@ export const COMMON_BOTH = 3;
  * @typedef {([number[],number[]]|[number,number][]|{x:number[],y:number[]})} Peaks
  */
 
-/**
- * Create a comparator class
- * {object} [options={}]
- * {string} [options.common=''] should we take only common peaks 'first', 'second', 'both', ''
- * {number} [options.widthBottom=2] bottom trapezoid width for similarity evaluation
- * {number} [options.widthTop=1] top trapezoid width for similarity evaluation
- * {number} [options.from] from region used for similarity calculation
- * {number} [options.to] to region used for similarity calculation
- */
 export class Comparator {
+  /**
+   * Create a comparator class
+   * {object} [options={}]
+   * {string} [options.common=''] should we take only common peaks 'first', 'second', 'both', ''
+   * {number} [options.widthBottom=2] bottom trapezoid width for similarity evaluation
+   * {number} [options.widthTop=1] top trapezoid width for similarity evaluation
+   * {number} [options.from] from region used for similarity calculation
+   * {number} [options.to] to region used for similarity calculation
+   */
   constructor(options = {}) {
     this.array1 = [];
     this.array2 = [];
