@@ -26,6 +26,7 @@ export class Comparator {
    * {number} [options.widthTop=1] top trapezoid width for similarity evaluation
    * {number} [options.from] from region used for similarity calculation
    * {number} [options.to] to region used for similarity calculation
+   * @param options
    */
   constructor(options = {}) {
     this.array1 = [];
@@ -301,7 +302,7 @@ export class Comparator {
         }
       }
     }
-    return NaN;
+    return Number.NaN;
   }
 
   /**

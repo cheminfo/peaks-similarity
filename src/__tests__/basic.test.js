@@ -228,7 +228,7 @@ test('We check similarity with overlap of trapezoid', () => {
         ],
       ).similarity,
     ).toBe(1);
-    expect(comparator.getSimilarity([[1, 1]], [[4, 1]]).similarity).toBe(0.0);
+    expect(comparator.getSimilarity([[1, 1]], [[4, 1]]).similarity).toBe(0);
     expect(
       comparator.getSimilarity(
         [[1, 1]],
